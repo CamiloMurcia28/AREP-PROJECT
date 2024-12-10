@@ -104,7 +104,7 @@ public class PubSub {
             CountDownLatch countDownLatch = new CountDownLatch(cmdData.input_count);
             CompletableFuture<Integer> subscribed = connection.subscribe(cmdData.input_topic, QualityOfService.AT_LEAST_ONCE, (message) -> {
                 String payload = new String(message.getPayload(), StandardCharsets.UTF_8);
-                System.out.println("MESSAGE: " + 2);
+                System.out.println("MESSAGE: " + payload);
                 countDownLatch.countDown();
             });
             subscribed.get();
@@ -112,7 +112,7 @@ public class PubSub {
             // Publish to the topic
             int count = 0;
             while (count++ < cmdData.input_count) {
-                CompletableFuture<Integer> published = connection.publish(new MqttMessage(cmdData.input_topic, "2".getBytes(), QualityOfService.AT_LEAST_ONCE, false));
+                CompletableFuture<Integer> published = connection.publish(new MqttMessage(cmdData.input_topic, "Mensaje nuevo".getBytes(), QualityOfService.AT_LEAST_ONCE, false));
                 published.get();
                 Thread.sleep(1000);
             }
