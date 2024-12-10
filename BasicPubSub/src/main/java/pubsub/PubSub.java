@@ -29,6 +29,8 @@ public class PubSub {
     // exec:java task to return a non-zero exit code
     static String ciPropValue = System.getProperty("aws.crt.ci");
     static boolean isCI = ciPropValue != null && Boolean.valueOf(ciPropValue);
+    private static String mensaje = "Mensaje new";
+
 
     static CommandLineUtils cmdUtils;
 
@@ -52,6 +54,7 @@ public class PubSub {
          * See the Utils/CommandLineUtils for more information.
          */
         CommandLineUtils.SampleCommandLineData cmdData = CommandLineUtils.getInputForIoTSample("PubSub", args);
+        User usuario = new User("Camilo", "camil@gmail.com", "123456");
 
         MqttClientConnectionEvents callbacks = new MqttClientConnectionEvents() {
             @Override
@@ -112,7 +115,7 @@ public class PubSub {
             // Publish to the topic
             int count = 0;
             while (count++ < cmdData.input_count) {
-                CompletableFuture<Integer> published = connection.publish(new MqttMessage(cmdData.input_topic, "Mensaje nuevo".getBytes(), QualityOfService.AT_LEAST_ONCE, false));
+                CompletableFuture<Integer> published = connection.publish(new MqttMessage(cmdData.input_topic, usuario.getName().getBytes(), QualityOfService.AT_LEAST_ONCE, false));
                 published.get();
                 Thread.sleep(1000);
             }
