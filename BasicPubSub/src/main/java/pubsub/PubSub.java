@@ -5,6 +5,8 @@
 
 package pubsub;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import software.amazon.awssdk.crt.CRT;
 import software.amazon.awssdk.crt.CrtResource;
 import software.amazon.awssdk.crt.CrtRuntimeException;
@@ -46,15 +48,20 @@ public class PubSub {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JsonProcessingException {
 
+        // Crear el objeto user
+        User user = new User("miUsuario", "miContraseña");
+        // Crear el serializador de JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        String mensaje = objectMapper.writeValueAsString(user); // Serializar a JSON
         /**
          * cmdData is the arguments/input from the command line placed into a single struct for
          * use in this sample. This handles all of the command line parsing, validating, etc.
          * See the Utils/CommandLineUtils for more information.
          */
+
         CommandLineUtils.SampleCommandLineData cmdData = CommandLineUtils.getInputForIoTSample("PubSub", args);
-        User usuario = new User("Camilo", "camil@gmail.com", "123456");
 
         MqttClientConnectionEvents callbacks = new MqttClientConnectionEvents() {
             @Override
@@ -115,7 +122,7 @@ public class PubSub {
             // Publish to the topic
             int count = 0;
             while (count++ < cmdData.input_count) {
-                CompletableFuture<Integer> published = connection.publish(new MqttMessage(cmdData.input_topic, usuario.getName().getBytes(), QualityOfService.AT_LEAST_ONCE, false));
+                CompletableFuture<Integer> published = connection.publish(new MqttMessage(cmdData.input_topic, mensaje.getBytes(StandardCharsets.UTF_8), QualityOfService.AT_LEAST_ONCE, false));
                 published.get();
                 Thread.sleep(1000);
             }
@@ -135,6 +142,4 @@ public class PubSub {
         CrtResource.waitForNoResources();
         System.out.println("Complete!");
     }
-
-
 }

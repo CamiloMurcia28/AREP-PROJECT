@@ -1,37 +1,39 @@
 package pubsub;
 
-public class User {
-    private String name;
-    private String email;
-    private String password;
+class User {
+    private String usuario;
+    private String contraseña;
 
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    public User() {
     }
 
-    public String getName() {
-        return name;
+    public User(String usuario, String contraseña) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    // Getters y Setters
+    public String getUsuario() {
+        return usuario;
     }
 
-    public String getEmail() {
-        return email;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public String getPassword() {
-        return password;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String toString() {
+        return "User{" +
+                "usuario='" + usuario + '\'' +
+                ", contraseña='" + contraseña + '\'' +
+                '}';
     }
 }
