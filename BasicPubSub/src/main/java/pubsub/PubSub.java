@@ -51,7 +51,7 @@ public class PubSub {
     public static void main(String[] args) throws JsonProcessingException {
 
         // Crear el objeto user
-        User user = new User("miUsuario", "miContraseña");
+        User user = new User("miUsuario", "miContrasena");
         // Crear el serializador de JSON
         ObjectMapper objectMapper = new ObjectMapper();
         String mensaje = objectMapper.writeValueAsString(user); // Serializar a JSON

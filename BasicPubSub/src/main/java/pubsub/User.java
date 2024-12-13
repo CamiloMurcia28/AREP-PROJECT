@@ -2,14 +2,14 @@ package pubsub;
 
 class User {
     private String usuario;
-    private String contraseña;
+    private String contrasena;
 
     public User() {
     }
 
-    public User(String usuario, String contraseña) {
+    public User(String usuario, String contrasena) {
         this.usuario = usuario;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
     }
 
     // Getters y Setters
@@ -22,18 +22,18 @@ class User {
     }
 
     public String getContraseña() {
-        return contraseña;
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContraseña(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "usuario='" + usuario + '\'' +
-                ", contraseña='" + contraseña + '\'' +
+                ", contraseña='" + contrasena + '\'' +
                 '}';
     }
 }
